@@ -1,0 +1,272 @@
+<div class="custom_container">
+  <div class="white_wrapper">
+    <h2 class="heading">Add Company</h2>
+    <div class="flex_row">
+      <ul class="breadcrumb">
+        <li>
+          <a [routerLink]="'COMPANY' | absolutePath">Company</a>
+        </li>
+        <li>
+          <a href="javascript:void(0)" class="active">Add</a>
+        </li>
+      </ul>
+    </div>
+    <form
+      action=""
+      [formGroup]="companyForm"
+      (submit)="addCompany(companyForm.value)"
+    >
+      <div class="form_wrapper">
+        <div class="flex_row">
+          <div class="flex_col_sm_5">
+            <div class="form_filed_wrapper">
+              <mat-form-field appearance="outline">
+                <mat-label>Company Code</mat-label>
+                <input appNospace formControlName="companyCode" matInput />
+                <mat-error>{{
+                  getControl("companyCode") | validate: "Company Code"
+                }}</mat-error>
+                <mat-error *ngIf="isCompanyUniqueMsg">{{
+                  isCompanyUniqueMsg
+                }}</mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="flex_col_sm_5">
+            <div class="form_filed_wrapper">
+              <mat-form-field appearance="outline">
+                <mat-label>Company Name</mat-label>
+                <input
+                  appNospace
+                  formControlName="name"
+                  matInput
+                  maxlength="50"
+                />
+                <mat-error>{{
+                  getControl("name") | validate: "Company Name"
+                }}</mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+        <div class="flex_row">
+          <div class="flex_col_sm_5">
+            <div class="form_filed_wrapper">
+              <mat-form-field appearance="outline">
+                <mat-label>Email ID</mat-label>
+                <input formControlName="email" matInput />
+                <mat-error>{{
+                  getControl("email") | validate: "Email id"
+                }}</mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="flex_col_sm_5" formArrayName="contactNumber">
+            <div
+              class="form_filed_wrapper"
+              *ngFor="
+                let number of contactNumber.controls;
+                let j = index;
+                last as last
+              "
+              [formGroupName]="j"
+            >
+              <mat-form-field appearance="outline">
+                <mat-label>Contact Number</mat-label>
+                <input matInput formControlName="phoneNumber" numberOnly />
+                <mat-error>{{
+                  getArrayControl("phoneNumber") | validate: "Phone Number"
+                }}</mat-error>
+              </mat-form-field>
+              <mat-icon
+                class="add"
+                *ngIf="j == 0 && contactNumber.controls.length <= 2"
+                matTooltip="Add More"
+                matTooltipPosition="before"
+                (click)="addItem()"
+              >
+                add_circle
+              </mat-icon>
+
+              <mat-icon
+                class="add"
+                *ngIf="j > 0"
+                matTooltip="Remove"
+                matTooltipPosition="before"
+                (click)="removeNumber(j)"
+              >
+                remove_circle
+              </mat-icon>
+            </div>
+          </div>
+        </div>
+        <div class="flex_row">
+          <div class="flex_col_sm_5">
+            <div class="form_filed_wrapper">
+              <mat-form-field appearance="outline">
+                <mat-label>Select company Type</mat-label>
+                <mat-select
+                  formControlName="companyType"
+                  placeholder="Select company type"
+                >
+                  <mat-option
+                    *ngFor="let type of companyTypes"
+                    [value]="type.id"
+                  >
+                    {{ type.companyType }}</mat-option
+                  >
+                </mat-select>
+                <mat-error>{{
+                  getControl("companyType") | validate: "Company Type"
+                }}</mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="flex_col_sm_5">
+            <div class="form_filed_wrapper search">
+              <mat-form-field
+                appearance="outline"
+                [ngClass]="isAddress ? 'mat-form-field-invalid' : ''"
+              >
+                <mat-label>Search Branch Location</mat-label>
+                <input
+                  matInput
+                  appGooglePlaces
+                  class="textbox"
+                  placeholder="Search Branch Location"
+                  (selectAddress)="setAddress($event)"
+                  formControlName="address"
+                />
+                <mat-error>{{
+                  getControl("address") | validate: "Address"
+                }}</mat-error>
+              </mat-form-field>
+              <mat-icon matPrefix class="searchPanel">search</mat-icon>
+            </div>
+          </div>
+        </div>
+        <div class="flex_row">
+          <div class="flex_col_sm_5">
+            <div class="form_filed_wrapper">
+              <mat-form-field appearance="outline">
+                <mat-label>Total Employees</mat-label>
+                <input formControlName="totalEmp" numberOnly matInput />
+                <mat-error>{{
+                  getControl("totalEmp") | validate: "number Of employees"
+                }}</mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="flex_col_sm_5">
+            <div class="form_filed_wrapper">
+              <mat-form-field appearance="outline">
+                <mat-label>Select subscription</mat-label>
+                <mat-select
+                  formControlName="planeId"
+                  placeholder="Select subscription "
+                >
+                  <mat-option
+                    *ngFor="let sub of allSubscriptions"
+                    [value]="sub._id"
+                  >
+                    {{ sub.name }}</mat-option
+                  >
+                </mat-select>
+                <mat-error>{{
+                  getControl("planeId") | validate: "subscription plan"
+                }}</mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex_row">
+          <div class="flex_col_sm_5">
+            <div class="form_filed_wrapper">
+              <mat-form-field appearance="outline">
+                <mat-label>Max Service Range (In Km)</mat-label>
+                <input
+                  appNospace
+                  type="number"
+                  formControlName="maxGroupRadius"
+                  matInput
+                />
+                <mat-error>{{
+                  getControl("maxGroupRadius") | validate: "Max Service Range"
+                }}</mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+          <div
+            class="flex_col_sm_5"
+            *ngIf="companyForm.controls.serverType.value == 'house'"
+          >
+            <div class="form_filed_wrapper">
+              <mat-form-field appearance="outline">
+                <mat-label>Enter Url</mat-label>
+                <input appNospace formControlName="url" matInput />
+                <mat-error>{{ getControl("url") | validate: "url" }}</mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex_row">
+          <div class="flex_col_sm_5">
+            <div class="form_filed_wrapper">
+              <mat-label class="form_label">Server Type</mat-label>
+              <mat-radio-group
+                formControlName="serverType"
+                (change)="checkServerType($event.value)"
+              >
+                <mat-radio-button
+                  [checked]="server.checked"
+                  *ngFor="let server of serverTypes"
+                  [value]="server.id"
+                >
+                  {{ server.name }}
+                </mat-radio-button>
+              </mat-radio-group>
+            </div>
+          </div>
+
+          <div class="flex_col_sm_5">
+            <div class="form_filed_wrapper">
+              <label class="form_label">Payment Type</label>
+              <mat-radio-group formControlName="paymentType">
+                <mat-radio-button
+                  [checked]="payment.checked"
+                  *ngFor="let payment of paymentTypes"
+                  [value]="payment.id"
+                >
+                  {{ payment?.name }}
+                </mat-radio-button>
+              </mat-radio-group>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex_row">
+          <div class="flex_col_sm_10">
+            <div class="form_filed_wrapper text-center">
+              <ul class="btn_wrapper">
+                <li>
+                  <button
+                    mat-raised-button
+                    [routerLink]="'COMPANY' | absolutePath"
+                    type="button"
+                  >
+                    Cancel
+                  </button>
+                </li>
+                <li>
+                  <button mat-raised-button color="primary">Send Invite</button>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

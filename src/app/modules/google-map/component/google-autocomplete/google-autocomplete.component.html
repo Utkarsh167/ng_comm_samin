@@ -1,0 +1,8 @@
+
+<mat-form-field>
+    <input matInput placeholder="Search Location" [formControl]="control" autocorrect="off" autocapitalize="off"
+        spellcheck="off" type="text" class="textbox" #search id="search" name="search">
+    <mat-icon matPrefix>search</mat-icon>
+    <mat-error>{{control|validate:'Address'}}</mat-error>
+</mat-form-field>
+<!-- <p>{{control.errors | json}}</p> -->

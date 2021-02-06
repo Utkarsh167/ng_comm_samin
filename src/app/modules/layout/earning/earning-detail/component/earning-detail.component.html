@@ -1,0 +1,69 @@
+<div class="custom_container">
+    <div class="white_wrapper">
+        <h2 class="heading">Earning</h2>
+
+        <div class="flex_row">
+            <ul class="breadcrumb">
+                <li>
+                    <a [routerLink]="['EARNING' | absolutePath]">Earning </a>
+                </li>
+                <li>
+                    <a href="javascript:void(0)" class="active">123</a>
+                </li>
+            </ul>
+        </div>
+        <div class="form_wrapper">
+            <div class="flex_row">
+                <div class="flex_col_sm_3">
+                    <div class="form_filed_wrapper_details">
+                        <label class="form_label">Company Name</label>
+                        <span class="show_label">{{earningData?.name | checkNull}}</span>
+                    </div>
+                </div>
+                <div class="flex_col_sm_3">
+                    <div class="form_filed_wrapper_details">
+                        <label class="form_label">Subscription Plan</label>
+                        <span class="show_label">{{earningData?.plan | checkNull}}</span>
+                    </div>
+                </div>
+                <div class="flex_col_sm_3">
+                    <div class="form_filed_wrapper_details">
+                        <label class="form_label">Payment Date</label>
+                        <span class="show_label">{{earningData?.paymentDate | customDate}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="flex_row">
+                <div class="flex_col_sm_3">
+                    <div class="form_filed_wrapper_details">
+                        <label class="form_label">Total Amount </label>
+                        <span class="show_label">{{earningData?.totalAmount | checkNull}}</span>
+                    </div>
+                </div>
+                <div class="flex_col_sm_3">
+                    <div class="form_filed_wrapper_details">
+                        <label class="form_label">License Key</label>
+                        <span class="show_label">{{earningData?.companyCode | checkNull}}</span>
+                    </div>
+                </div>
+                <!-- <div class="flex_col_sm_3">
+                    <div class="form_filed_wrapper_details">
+
+                    </div>
+                </div> -->
+            </div>
+            <!-- <div class="flex_row">
+                <div class="flex_col_sm_3">
+                    <div class="form_filed_wrapper_details">
+
+                    </div>
+                </div>
+                <div class="flex_col_sm_3">
+                    <div class="form_filed_wrapper_details">
+
+                    </div>
+                </div>
+            </div> -->
+        </div>
+    </div>
+</div>

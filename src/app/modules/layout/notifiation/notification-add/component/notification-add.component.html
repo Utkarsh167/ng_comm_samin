@@ -1,0 +1,88 @@
+<div class="custom_container">
+    <div class="white_wrapper">
+        <h2 class="heading">Add Notification</h2>
+        <div class="flex_row">
+            <ul class="breadcrumb">
+                <li>
+                    <a [routerLink]="'NOTIFICATION'|absolutePath">Notification</a>
+                </li>
+                <li>
+                    <a href="javascript:void(0)" class="active">Add</a>
+                </li>
+            </ul>
+        </div>
+        <form action="" [formGroup]="notificationForm" (ngSubmit)="submitForm()">
+            <div class="form_wrapper">
+                <div class="flex_row">
+                    <div class="flex_col_sm_5">
+                        <div class="form_filed_wrapper">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Title</mat-label>
+                                <input matInput formControlName="title">
+                                <mat-error>{{getControl('title')|validate:'Title'}}</mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="flex_col_sm_5">
+                        <div class="form_filed_wrapper">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Send To</mat-label>
+                                <mat-select formControlName="audience">
+                                    <mat-option [value]="'all'">
+                                        {{'All'}}
+                                    </mat-option>
+                                    <mat-option *ngFor="let admin of allAdminData" [value]="admin.id">
+                                        {{admin.name}}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-error>{{getControl('audience')|validate:'User'}}</mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex_row">
+                    <div class="flex_col_sm_10">
+                        <div class="form_filed_wrapper">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Message</mat-label>
+                                <textarea matInput formControlName="message"></textarea>
+                                <mat-error>{{getControl('message')|validate:'Message'}}</mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex_row">
+                    <div class="flex_col_sm_3">
+                        <div class="form_filed_wrapper">
+                            <div class="uploadWrapper">
+                                <input type="file" id="upload_img" (change)="onSelectFile($event)" [title]="imgTooltip? imgTooltip :'No file chosen'">
+                                <div class="uploadmesage">
+                                    <img [src]="notificationImage" *ngIf="notificationImage">
+                                    <img src="./assets/images/plus.svg" class="uploadplaceholder" alt="" *ngIf="!notificationImage">
+                                    <p class="uploadImage" *ngIf="!notificationImage">
+                                        Upload Image
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex_row">
+                    <div class="flex_col_sm_10">
+                        <div class="form_filed_wrapper text-center">
+
+                            <ul class="btn_wrapper">
+                                <li> <button mat-raised-button [routerLink]="'NOTIFICATION'|absolutePath"
+                                        type="button">Cancel</button>
+                                </li>
+                                <li> <button mat-raised-button color="primary">Send</button> </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>

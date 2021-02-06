@@ -1,0 +1,35 @@
+<header>
+    <div class="inner_header">
+        <div class="brand-col">
+            <figure class="brand_wrap">
+                <img src="assets/images/new-logo.png" alt="Flet Management">
+            </figure>
+        </div>
+
+        <div class="nav_wrapper">
+            <nav>
+                <ul>
+                    <li><a [routerLink]="'DASHBOARD'|absolutePath" routerLinkActive="active">Dashboard</a></li>
+                    <li><a [routerLink]="'COMPANY'|absolutePath" routerLinkActive="active">Company</a></li>
+                    <li><a [routerLink]="'SUBSCRIPTION'|absolutePath" routerLinkActive="active">Subscriptions</a></li>
+                    <li><a [routerLink]="'EARNING'|absolutePath" routerLinkActive="active">Earning</a></li>
+                    <li><a [routerLink]="'NOTIFICATION'|absolutePath" routerLinkActive="active">Notification</a></li>
+                </ul>
+            </nav>
+        </div>
+
+        <div class="setting" [matMenuTriggerFor]="menu2">
+            <figure class="setting_img">
+                <span>{{'A'}}</span>
+            </figure>
+        </div>
+        <mat-menu #menu2="matMenu">
+            <button mat-menu-item routerLink="/admin/profile">My Profile</button>
+            <button mat-menu-item routerLink="/admin/change-password">Change Password</button>
+            <button mat-menu-item (click)="logout()">Logout</button>
+        </mat-menu>
+
+
+    </div>
+
+</header>

@@ -1,0 +1,109 @@
+<div class="custom_container">
+    <div class="white_wrapper">
+        <h2 class="heading">Company</h2>
+
+        <div class="flex_row">
+            <ul class="breadcrumb">
+                <li>
+                    <a [routerLink]="'COMPANY'|absolutePath">Company </a>
+                </li>
+                <li>
+                    <a href="javascript:void(0)" class="active">Company 1</a>
+                </li>
+            </ul>
+        </div>
+        <div class="form_wrapper">
+            <div class="flex_row">
+                <div class="flex_col_sm_3">
+                    <div class="form_filed_wrapper_details">
+                        <label class="form_label">Company Code</label>
+                        <span class="show_label">{{company?.companyCode | checkNull}}</span>
+                    </div>
+                </div>
+                <div class="flex_col_sm_3">
+                    <div class="form_filed_wrapper_details">
+                        <label class="form_label">Company Name</label>
+                        <span class="show_label">{{company?.name | checkNull}}</span>
+                    </div>
+                </div>
+                <div class="flex_col_sm_3">
+                    <div class="form_filed_wrapper_details">
+                        <label class="form_label">Email ID</label>
+                        <span class="show_label">{{company?.email | checkNull}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="flex_row">
+                <div class="flex_col_sm_3">
+                    <div class="form_filed_wrapper_details">
+                        <label class="form_label">Contact Number</label>
+                        <span class="show_label" *ngFor="let contact of company?.contactNumber">{{contact.phoneNumber | checkNull}}</span>
+                    </div>
+                </div>
+                <div class="flex_col_sm_3">
+                    <div class="form_filed_wrapper_details">
+                        <label class="form_label">Type</label>
+                        <span class="show_label">{{company?.companyType?.type | checkNull}}</span>
+                    </div>
+                </div>
+                <div class="flex_col_sm_3">
+                    <div class="form_filed_wrapper_details">
+                        <label class="form_label">Branch Location</label>
+                        <span class="show_label">{{company?.companyBranch?.address | checkNull}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="flex_row">
+                <div class="flex_col_sm_3">
+                    <div class="form_filed_wrapper_details">
+                        <label class="form_label">Added On</label>
+                        <span class="show_label">{{company?.created | customDate}}</span>
+                    </div>
+                </div>
+                <div class="flex_col_sm_3">
+                    <div class="form_filed_wrapper_details">
+                        <label class="form_label">Total Employees</label>
+                        <span class="show_label">{{company?.totalEmp | checkNull}}</span>
+                    </div>
+                </div>
+                <div class="flex_col_sm_3">
+                    <div class="form_filed_wrapper_details">
+                        <label class="form_label">Subscription Plan</label>
+                        <span class="show_label">{{company?.plane?.name | checkNull}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="flex_row">
+                <div class="flex_col_sm_3">
+                    <div class="form_filed_wrapper_details">
+                        <label class="form_label">Payment Type</label>
+                        <span class="show_label">{{company?.paymentType | checkNull}}</span>
+                    </div>
+                </div>
+                <div class="flex_col_sm_3">
+                    <div class="form_filed_wrapper_details">
+                        <label class="form_label">Server Type</label>
+                        <span class="show_label">{{company?.serverType}}</span>
+                    </div>
+                </div>
+                <div class="flex_col_sm_3">
+                    <div class="form_filed_wrapper_details">
+                        <label class="form_label">Status</label>
+                        <span class="show_label">{{company?.status}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="flex_row">
+            <div class="flex_col_sm_10">
+                <div class="form_filed_wrapper_details text-center">
+                    <ul class="btn_wrapper">
+                        <li *ngIf="company?.status=='unblocked'" (click)="changeStatus('blocked')"> <button mat-raised-button type="button">Block</button> </li>
+                        <li *ngIf="company?.status=='blocked'" (click)="changeStatus('unblocked')"> <button mat-raised-button type="button">Unblock</button> </li>
+                        <li> <button mat-raised-button color="primary" [routerLink]="['COMPANY_EDIT' | absolutePath,company?._id]">Edit</button> </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

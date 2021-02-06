@@ -1,0 +1,33 @@
+.notifyHdr {
+    background: #2bd5af;
+    padding: 10px;
+    text-align: center;
+    margin-bottom: 30px;
+    h4 {
+        color: #fff;
+        font-weight: 500;
+    }
+}
+
+.notifyMsg {
+    text-align: center;
+    font-size: 17px;
+    margin-bottom: 20px;
+    font-weight: 500;
+}
+
+.notifyWrapper mat-form-field {
+    padding: 0 30px;
+    margin-bottom: 20px;
+}
+
+.btn_wrapper li .mat-raised-button.mat-primary {
+    background-color: #79f2c0;
+    color:#091e42;
+
+}
+
+button{
+    box-shadow:none !important;
+    border: 1px solid #79f2c0 !important;
+}

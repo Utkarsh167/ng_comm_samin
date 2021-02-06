@@ -1,0 +1,104 @@
+<div class="custom_container">
+    <div class="white_wrapper">
+        <h2 class="heading">{{subscriptionId? 'Edit' : 'Add'}} Subscription Plan</h2>
+        <div class="flex_row">
+            <ul class="breadcrumb">
+                <li>
+                    <a [routerLink]="'SUBSCRIPTION'|absolutePath">Subscription</a>
+                </li>
+                <li>
+                    <a href="javascript:void(0)" class="active" *ngIf="!subscriptionId">{{'Add'}}</a>
+                    <a href="javascript:void(0)" class="active" *ngIf="subscriptionId">{{'Edit'}}</a>
+                </li>
+            </ul>
+        </div>
+        <form action="" [formGroup]="subscriptionForm" (submit)="addSubcription(subscriptionForm.value)">
+            <div class="form_wrapper">
+                <div class="flex_row">
+                    <div class="flex_col_sm_5">
+                        <div class="form_filed_wrapper">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Enter Subscription Name</mat-label>
+                                <input appNospace formControlName="name" matInput [readonly]="subscriptionId">
+                                <mat-error>{{getControl('name')|validate:'Subscription Name'}}</mat-error>
+                                <mat-error *ngIf="isSubUniqueMsg">{{isSubUniqueMsg }}</mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="flex_col_sm_5">
+                        <div class="form_filed_wrapper">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Enter Price</mat-label>
+                                <input formControlName="price" numberOnly matInput maxlength="50">
+                                <mat-error>{{getControl('price')|validate:'Price'}}</mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex_row">
+                    <div class="flex_col_sm_5">
+                        <div class="form_filed_wrapper">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Enter Grace period</mat-label>
+                                <input formControlName="gracePeriod" numberOnly matInput>
+                                <mat-error>{{getControl('gracePeriod')|validate:'Grace Period'}}</mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="flex_col_sm_5">
+                        <div class="form_filed_wrapper">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Description</mat-label>
+                                <textarea appNospace matInput formControlName="description" placeholder="Enter Description"></textarea>
+                                <mat-error>{{getControl('description')|validate:'Description'}}</mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex_row">
+                    <div class="flex_col_sm_5">
+                        <div class="form_filed_wrapper">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Select Year</mat-label>
+                                <mat-select formControlName="year" (selectionChange)="setMonths($event.value)" placeholder="Select Year">
+                                    <mat-option *ngFor="let y of year" [value]="y">
+                                        {{y}}</mat-option>
+                                </mat-select>
+                                <mat-error>{{getControl('year')|validate:'Year'}}</mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="flex_col_sm_5">
+
+                        <div class="form_filed_wrapper">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Select Month</mat-label>
+                                <mat-select formControlName="month" placeholder="Select Month">
+                                    <mat-option *ngFor="let m of months" [value]="m">
+                                        {{m}}</mat-option>
+                                </mat-select>
+                                <mat-error>{{getControl('month')|validate:'Month'}}</mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex_row">
+                    <div class="flex_col_sm_10">
+                        <div class="form_filed_wrapper text-center">
+
+                            <ul class="btn_wrapper">
+                                <li> <button mat-raised-button [routerLink]="'SUBSCRIPTION'|absolutePath" type="button">Cancel</button>
+                                </li>
+                                <li> <button mat-raised-button color="primary">{{subscriptionId?'Update':'Add'}}</button> </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>

@@ -1,0 +1,57 @@
+<div class="custom_container">
+    <div class="white_wrapper">
+        <h2 class="heading">Profile</h2>
+        <div class="form_wrapper">
+            <div *ngIf="!isEdit" class="flex_row bg-btm">
+               
+                    <div class="flex_col_sm_5">
+                        <div class="form_filed_wrapper_details">
+                            <label class="form_label">Name</label>
+                            <span _ngcontent-dcb-c7="" class="show_label">{{userData?.name}}</span>
+                        </div>
+                    </div>
+                    <div class="flex_col_sm_5">
+                        <div class="form_filed_wrapper_details">
+                            <label class="form_label">Email</label>
+                            <span _ngcontent-dcb-c7="" class="show_label">{{userData?.email}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="!isEdit" class="flex_row">
+                    <div class="flex_col_sm_10">
+                        <div class="form_filed_wrapper_details text-center">
+                            <ul class="btn_wrapper">
+                                <li> <button type="button" mat-raised-button color="primary"(click)= "onEdit()" >Edit</button> </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <form *ngIf="isEdit" [formGroup]="editProfileForm" (ngSubmit)="onUpdateProfile()">
+                    <div class="flex_row bg-btm">
+                        <div class="flex_col_sm_5">
+                            <div class="form_filed_wrapper_details">
+                                <mat-form-field>
+                                    <input matInput formControlName="name" placeholder="Name">
+                                    <mat-error>{{getControl('name')|validate:'name'}}</mat-error>
+
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+                        
+                    <div class="flex_row">
+                        <div class="flex_col_sm_10">
+                            <div class="form_filed_wrapper_details text-center">
+                                <ul class="btn_wrapper">
+                                    <li *ngIf="isEdit"> <button type="button" mat-raised-button color="primary" class="cancel" (click) = "onCancel()">Cancel</button> </li>
+                                    <!-- <li *ngIf="isEdit"> <button type="submit" mat-raised-button [routerLink]="'./edit'" color="primary">Update</button> </li> -->
+                                    <li *ngIf="isEdit"> <button type="submit" mat-raised-button color="primary">Update</button> </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+        </div>
+    </div>
+</div>

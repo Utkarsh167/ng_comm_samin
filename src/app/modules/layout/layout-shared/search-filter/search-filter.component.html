@@ -1,0 +1,10 @@
+<div class="searchWrapper">
+    <div class="form_filed_wrapper">
+        <mat-form-field appearance="outline">
+            <mat-label>{{placeholder}}</mat-label>
+            <input matInput [placeholder]="placeholder" (keyup)="searchResult()" [(ngModel)]="search">
+            <mat-icon class="clear" *ngIf="search.trim()" (click)="resetSearch()">close</mat-icon>
+        </mat-form-field>
+        <mat-icon class="search">search</mat-icon>
+    </div>
+</div>

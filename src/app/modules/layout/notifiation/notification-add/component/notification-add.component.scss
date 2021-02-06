@@ -1,0 +1,137 @@
+mat-radio-button {
+    margin: 0 43px 0 0;
+}
+
+.flex_row {
+    display: flex;
+    margin: 0 -10px;
+    align-items: center;
+}
+
+.breadcrumb {
+    width: 100%;
+    padding: 10px 15px;
+    li {
+        display: inline-block;
+        a {
+            color: #006CB8;
+            text-decoration: none;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 400;
+            outline: none;
+            &:before {
+                padding: 0 5px;
+                color: #B7BEC1;
+                content: "/ ";
+            }
+            &:after {
+                content: "/\00a0";
+                padding: 0 2px;
+                color: #A2ABAE;
+            }
+            &.active {
+                color: rgb(38, 44, 45);
+                cursor: default;
+                &:after {
+                    display: none;
+                }
+            }
+        }
+        &:first-child {
+            a {
+                &:before,
+                &:after {
+                    display: none;
+                }
+            }
+        }
+    }
+}
+
+.flex_row {
+    align-items: flex-start;
+    .form_filed_wrapper {
+        position: relative;
+        .add {
+            position: absolute;
+            top: 20px;
+            right: -40px;
+            cursor: pointer;
+            outline: none;
+        }
+    }
+}
+
+.search {
+    position: relative;
+    .searchPanel {
+        position: absolute;
+        top: 40px;
+        right: 10px;
+    }
+}
+
+.addrError {
+    position: absolute;
+    bottom: 3px;
+    font-size: 12px;
+    padding-left: 10px;
+}
+
+.uploadWrapper {
+    width: 100%;
+    height: 200px;
+    background: rgba(163, 163, 163, 0.23);
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .uploadplaceholder{
+        width:50px;
+        height:50px;
+    }
+}
+
+.uploadWrapper input[type="file"] {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0;
+    width: 100%;
+}
+
+.uploadWrapper img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+}
+
+.uploadmesage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 330px;
+    flex-wrap: wrap;
+    flex-direction: column;
+    height: 200px;
+    object-fit: cover;
+    object-position: center center;
+    img{
+        width:100%;
+         height:100%;
+    }
+}
+
+.uploadmesage p {
+    margin-top: 10px;
+    font-size: 15px;
+}
+
+button{
+    box-shadow:none !important;
+    border: 1px solid #79f2c0 !important;
+    min-width:104px;
+}

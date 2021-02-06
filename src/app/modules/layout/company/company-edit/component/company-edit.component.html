@@ -1,0 +1,253 @@
+<div class="custom_container">
+  <div class="white_wrapper">
+    <h2 class="heading">Edit Company</h2>
+    <div class="flex_row">
+      <ul class="breadcrumb">
+        <li>
+          <a [routerLink]="'COMPANY' | absolutePath">Company</a>
+        </li>
+        <li>
+          <a href="javascript:void(0)" class="active">Edit</a>
+        </li>
+      </ul>
+    </div>
+    <form
+      action=""
+      [formGroup]="companyForm"
+      (submit)="editCompany(companyForm.value)"
+    >
+      <div class="form_wrapper">
+        <div class="flex_row">
+          <div class="flex_col_sm_5">
+            <div class="form_filed_wrapper">
+              <mat-form-field appearance="outline" class="disabled" >
+                <mat-label>Company Code</mat-label>
+                <input formControlName="companyCode" matInput readonly />
+                <mat-error>{{
+                  getControl("companyCode") | validate: "Company Code"
+                }}</mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="flex_col_sm_5">
+            <div class="form_filed_wrapper">
+              <mat-form-field appearance="outline">
+                <mat-label>Company Name</mat-label>
+                <input formControlName="name" matInput maxlength="50" />
+                <mat-error>{{
+                  getControl("name") | validate: "Company Name"
+                }}</mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+        <div class="flex_row">
+          <div class="flex_col_sm_5">
+            <div class="form_filed_wrapper">
+              <mat-form-field appearance="outline" class="disabled">
+                <mat-label>Email ID</mat-label>
+                <input formControlName="email" readonly matInput />
+                <mat-error>{{
+                  getControl("email") | validate: "Email id"
+                }}</mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="flex_col_sm_5" formArrayName="contactNumber">
+            <div
+              class="form_filed_wrapper"
+              *ngFor="
+                let number of contactNumber.controls;
+                let j = index;
+                last as last
+              "
+              [formGroupName]="j"
+            >
+              <mat-form-field appearance="outline">
+                <mat-label>Contact Number</mat-label>
+                <input matInput formControlName="phoneNumber" numberOnly />
+                <mat-error>{{
+                  getArrayControl("phoneNumber") | validate: "Phone Number"
+                }}</mat-error>
+              </mat-form-field>
+              <mat-icon
+                class="add"
+                *ngIf="j == 0 && contactNumber.controls.length <= 2"
+                matTooltip="Add More"
+                matTooltipPosition="before"
+                (click)="addItem()"
+              >
+                add_circle
+              </mat-icon>
+
+              <mat-icon
+                class="add"
+                *ngIf="j > 0"
+                matTooltip="Remove"
+                matTooltipPosition="before"
+                (click)="removeNumber(j)"
+              >
+                remove_circle
+              </mat-icon>
+            </div>
+          </div>
+        </div>
+        <div class="flex_row">
+          <div class="flex_col_sm_5">
+            <div class="form_filed_wrapper">
+              <mat-form-field appearance="outline">
+                <mat-label>Company Type</mat-label>
+                <mat-select
+                  formControlName="companyType"
+                  placeholder="Select company type"
+                >
+                  <mat-option
+                    *ngFor="let type of companyTypes"
+                    [value]="type.id"
+                  >
+                    {{ type.companyType }}</mat-option
+                  >
+                </mat-select>
+                <mat-error>{{
+                  getControl("companyType") | validate: "Company Type"
+                }}</mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="flex_col_sm_5">
+            <div class="form_filed_wrapper">
+              <mat-form-field
+                appearance="outline"
+                [ngClass]="isAddress ? 'mat-form-field-invalid' : ''"
+              >
+                <mat-label>Branch Location</mat-label>
+                <input
+                  matInput
+                  appGooglePlaces
+                  formControlName="address"
+                  class="textbox"
+                  placeholder="Search Branch Location"
+                  (selectAddress)="setAddress($event)"
+                />
+                <mat-error>{{
+                    getControl("address") | validate: "Address"
+                  }}</mat-error>
+              </mat-form-field>
+              
+              <mat-icon matPrefix class="searchPanel">search</mat-icon>
+              <span class="error" *ngIf="isAddress"
+                >Please select address
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="flex_row">
+          <div class="flex_col_sm_5">
+            <div class="form_filed_wrapper">
+              <mat-form-field appearance="outline">
+                <mat-label>Total Employees</mat-label>
+                <input formControlName="totalEmp" numberOnly matInput />
+                <mat-error>{{
+                  getControl("totalEmp") | validate: "numbers of employee"
+                }}</mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="flex_col_sm_5">
+            <div class="form_filed_wrapper">
+              <div class="form_filed_wrapper">
+                <mat-form-field appearance="outline" class="disabled">
+                  <mat-label>Subscription Plan</mat-label>
+                  <input formControlName="planeId" readonly matInput />
+                  <mat-error>{{
+                    getControl("planeId") | validate: "subscription plan"
+                  }}</mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="flex_row">
+          <div class="flex_col_sm_5">
+            <div class="form_filed_wrapper">
+              <div class="form_filed_wrapper">
+                <mat-form-field appearance="outline" class="disabled">
+                  <mat-label>Payment Type</mat-label>
+                  <input formControlName="paymentType" readonly matInput />
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex_col_sm_5">
+            <div class="form_filed_wrapper">
+              <mat-form-field appearance="outline" [class.disabled]="companyForm.controls.serverType.value == 'fleet'">
+                <mat-label>Enter Url</mat-label>
+                <input
+                  formControlName="url"
+                  matInput
+                  [readonly]="companyForm.controls.serverType.value == 'fleet'"
+                />
+                <mat-error>{{ getControl("url") | validate: "Url" }}</mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex_row">
+          <div class="flex_col_sm_5">
+            <div class="form_filed_wrapper">
+              <mat-form-field appearance="outline">
+                <mat-label>Max Service Range (In Km)</mat-label>
+                <input
+                  formControlName="url"
+                  matInput
+                  type="number"
+                  formControlName="maxGroupRadius"
+                />
+                <mat-error>{{
+                  getControl("maxGroupRadius") | validate: "Max Service Range"
+                }}</mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="flex_col_sm_5">
+            <div class="form_filed_wrapper">
+              <mat-label class="form_label">Server Type</mat-label>
+              <mat-radio-group formControlName="serverType" disabled>
+                <mat-radio-button
+                  [checked]="server.checked"
+                  *ngFor="let server of serverTypes"
+                  [value]="server.id"
+                >
+                  {{ server.name }}
+                </mat-radio-button>
+              </mat-radio-group>
+            </div>
+          </div>
+        </div>
+        <div class="flex_row">
+          <div class="flex_col_sm_10">
+            <div class="form_filed_wrapper text-center">
+              <ul class="btn_wrapper">
+                <li>
+                  <button
+                    mat-raised-button
+                    [routerLink]="'COMPANY' | absolutePath"
+                    type="button"
+                  >
+                    Cancel
+                  </button>
+                </li>
+                <li>
+                  <button mat-raised-button color="primary">Update</button>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
